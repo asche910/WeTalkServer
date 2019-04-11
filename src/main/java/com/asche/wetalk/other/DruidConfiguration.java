@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+/**
+ * Alibaba数据库监控
+ */
 @Configuration
 public class DruidConfiguration {
 

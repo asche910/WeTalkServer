@@ -3,15 +3,17 @@ package com.asche.wetalk.bean;
 public class EmailBean {
     private String from;
     private String to;
+    private String name;
     private String subject;
     private String messageText;
 
     public EmailBean() {
     }
 
-    public EmailBean(String from, String to, String subject, String messageText) {
+    public EmailBean(String from, String to, String name, String subject, String messageText) {
         this.from = from;
         this.to = to;
+        this.name = name;
         this.subject = subject;
         this.messageText = messageText;
     }
@@ -30,6 +32,14 @@ public class EmailBean {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSubject() {

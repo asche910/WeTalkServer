@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -55,9 +56,9 @@ public class UserController {
 
     @GetMapping(value = "/query_name", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String queryName(@RequestParam String name){
-        List<String> names = userRepository.queryName(name);
-        String goal = Arrays.toString(names.toArray());
+    public String queryByName(@RequestParam String name){
+        List<UserBean> users = userRepository.queryByName(name);
+        String goal = Arrays.toString(users.toArray());
         println(goal);
         return goal;
     }
