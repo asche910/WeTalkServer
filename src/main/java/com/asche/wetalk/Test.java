@@ -10,6 +10,7 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("Test Start:...");
 
+
         MyRunnable runnable = new MyRunnable();
 
         Thread thread = new Thread(runnable, "MyThread-0");
