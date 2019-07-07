@@ -1,6 +1,6 @@
 package com.asche.wetalk.controller;
 
-import com.asche.wetalk.bean.UserBean;
+import com.asche.wetalk.entity.UserBean;
 import com.asche.wetalk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static com.asche.wetalk.util.PrintUtils.println;
 

@@ -1,4 +1,4 @@
-package com.asche.wetalk.bean;
+package com.asche.wetalk.entity;
 
 public class EmailBean {
     private String from;

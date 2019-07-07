@@ -1,4 +1,4 @@
-package com.asche.wetalk.bean;
+package com.asche.wetalk.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

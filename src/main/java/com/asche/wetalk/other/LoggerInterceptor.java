@@ -1,6 +1,6 @@
 package com.asche.wetalk.other;
 
-import com.asche.wetalk.bean.LoggerBean;
+import com.asche.wetalk.entity.LoggerBean;
 import com.asche.wetalk.repository.LoggerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-import static com.asche.wetalk.util.PrintUtils.println;
 
 public class LoggerInterceptor implements HandlerInterceptor {
 
