@@ -1,7 +1,8 @@
 package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
-import com.asche.wetalk.entity.UserBean;
+import com.asche.wetalk.entity.User;
+import com.asche.wetalk.mapper.UserMapper;
 import com.asche.wetalk.repository.UserRepository;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,7 +27,7 @@ import static com.asche.wetalk.util.PrintUtils.println;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Value("${spring.logo.test}")
     String logo;
@@ -35,79 +36,81 @@ public class UserController {
     @ResponseBody
     public String addUser(@RequestParam String name, @RequestParam String password, String email) {
 
-        UserBean userBean = new UserBean();
-        userBean.setName(name);
-        userBean.setPassword(password);
-        userBean.setEmail(email);
-        userRepository.save(userBean);
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        user.setEmail(email);
+        userMapper.addUser(user);
         return "Add success!";
     }
 
     @GetMapping(value = "/query", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String query(@RequestParam int id){
-        Optional<UserBean> optional = userRepository.findById(id);
-        if (optional.isPresent()){
-            UserBean userBean = optional.get();
-            println(userBean.toString());
-            return userBean.toString();
+    public CommonResult query(@RequestParam int id){
+        User user = userMapper.findUserById(id);
+        if (user != null){
+             return CommonResult.success(user);
+        }else{
+            return CommonResult.success(null);
         }
-        return "{\"code\":-1, \"status\":\"fail\"}";
     }
 
     @GetMapping(value = "/query_name", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String queryByName(@RequestParam String name){
-        List<UserBean> users = userRepository.queryByName(name);
-        String goal = Arrays.toString(users.toArray());
-        println(goal);
-        return goal;
+    public CommonResult queryByName(@RequestParam String username){
+        User user = userMapper.findUserByUserName(username);
+        if (user != null){
+            return CommonResult.success(user);
+        }else{
+            return CommonResult.success(null);
+        }
     }
 
     @GetMapping("/update")
     @ResponseBody
-    public String updateUser(UserBean userBean){
-        println(userBean.toString());
-        userRepository.save(userBean);
-        return "OK";
+    public CommonResult updateUser(User user){
+        println(user.toString());
+        userMapper.updateUser(user);
+        return CommonResult.success(null);
     }
 
     @GetMapping(value = "/delete", produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String deleteById(@RequestParam int id){
-        userRepository.deleteById(id);
-        return "{\"code\":0, \"status\":\"success\"}";
+    public CommonResult deleteById(@RequestParam int id){
+        userMapper.deleteUserById(id);
+        return CommonResult.success(null);
     }
 
 
     @GetMapping("/all")
     @ResponseBody
-    public Iterable<UserBean> getAllUser(){
-        return userRepository.findAll();
+    public CommonResult getAllUser(){
+        List<User> userList = userMapper.getAllUser();
+        return CommonResult.success(userList);
     }
 
     @GetMapping("/test")
     @ResponseBody
-    public CommonResult tset(){
+    public PageInfo tset(){
         PageHelper.startPage(2, 5);
-        List<UserBean> userList = userRepository.findAll();
+        List<User> userList = userMapper.getAllUser();
 
-        List<UserBean> list = new ArrayList<>();
+        List<User> list = new ArrayList<>();
         list.addAll(userList);
 //        list.addAll(userRepository.findAll());
 
 
-        PageInfo<UserBean> pageInfo = new PageInfo<>(list);
+        PageInfo<User> pageInfo = new PageInfo<>(list);
         System.out.println(pageInfo.toString());
-        return CommonResult.success("test message!");
-//        return pageInfo;
+//        return CommonResult.success("test message!");
+        return pageInfo;
     }
 
 
     @GetMapping("/redirect")
     public void redirectTest(HttpServletResponse response){
         response.setStatus(302);
-        response.addHeader("Location", "https://asche.top");
+        response.addHeader("Location", "http://asche.top");
 
         println(response.getClass().getCanonicalName());
     }

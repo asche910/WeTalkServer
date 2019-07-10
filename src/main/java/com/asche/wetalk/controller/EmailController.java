@@ -1,6 +1,6 @@
 package com.asche.wetalk.controller;
 
-import com.asche.wetalk.entity.EmailBean;
+import com.asche.wetalk.entity.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,17 +21,17 @@ public class EmailController {
     @GetMapping("/email")
     @ResponseBody
     public String mailTest(){
-        EmailBean emailBean = new EmailBean();
-        emailBean.setFrom("apknet@163.com");
-        emailBean.setTo("asche910@163.com");
-        emailBean.setName("Asche");
-        emailBean.setSubject("你好哈！");
-        emailBean.setMessageText("org.springframework.mail.MailSendException: Failed messages: com.sun.mail.smtp.SMTPSendFailedException:");
-        sendEmail(emailBean);
+        Email email = new Email();
+        email.setFrom("apknet@163.com");
+        email.setTo("asche910@163.com");
+        email.setName("Asche");
+        email.setSubject("你好哈！");
+        email.setMessageText("org.springframework.mail.MailSendException: Failed messages: com.sun.mail.smtp.SMTPSendFailedException:");
+        sendEmail(email);
         return "Send success!";
     }
 
-    public void sendEmail(EmailBean bean){
+    public void sendEmail(Email bean){
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         try {

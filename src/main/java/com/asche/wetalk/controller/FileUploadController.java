@@ -99,6 +99,8 @@ public class FileUploadController {
         Path path = rootLocation.resolve(fileName);
         try {
             Resource resource = new UrlResource(path.toUri());
+            println(resource.exists());
+            println(resource.isReadable());
             if (resource.exists() || resource.isReadable()) {
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment: filename=\"" + fileName + "\"")

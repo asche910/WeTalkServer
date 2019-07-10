@@ -2,21 +2,33 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.logger_test.mapper.UserMapper">
+<mapper namespace="com.asche.wetalk.mapper.UserMapper">
 
-    <select id="getAllUser" resultType="map">
-    select * from user_bean
-  </select>
-
-    <select id="findUserById" resultType="com.example.logger_test.entity.User">
+    <select id="findUserById" resultType="com.asche.wetalk.entity.User">
         select * from user_bean where id=#{id}
     </select>
 
-    <select id="findUserByEmail" resultType="com.example.logger_test.entity.User">
+    <select id="findUserByUserName" resultType="com.asche.wetalk.entity.User">
+        select * from user_bean where name=#{username}
+    </select>
+
+    <select id="findUserByEmail" resultType="com.asche.wetalk.entity.User">
         select * from user_bean where email=#{email}
+    </select>
+
+    <select id="getAllUser" resultType="map">
+        select * from user_bean
     </select>
 
     <insert id="addUser" >
         insert into user_bean values (#{id}, #{email}, #{name}, #{password})
     </insert>
+
+    <update id="updateUser">
+        update user_bean set password=#{password}, email=#{password} where name=#{name} or id=#{id}
+    </update>
+
+    <delete id="deleteUserById">
+        delete from user_bean where id=#{id}
+    </delete>
 </mapper>

@@ -1,6 +1,6 @@
 package com.asche.wetalk.controller;
 
-import com.asche.wetalk.entity.UserBean;
+import com.asche.wetalk.entity.User;
 import com.asche.wetalk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +28,9 @@ public class LoginController {
     @ResponseBody
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
         println("Login: " + username + " --- " + password);
-        UserBean userBean = userRepository.login(username);
-        if (userBean != null){
-            if (userBean.getPassword().equals(password)){
+        User user = userRepository.login(username);
+        if (user != null){
+            if (user.getPassword().equals(password)){
                 request.getSession().setAttribute("user", username);
                 return "Login success!";
             }

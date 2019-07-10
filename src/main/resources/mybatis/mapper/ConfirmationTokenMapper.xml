@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.logger_test.mapper.ConfirmationTokenMapper">
+<mapper namespace="com.asche.wetalk.mapper.ConfirmationTokenMapper">
 
 <!--    <insert id="addToken" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
 <!--        insert into confirmation_token (token, date, userId) values ( #{token}, #{date}, #{userId})-->
@@ -12,7 +12,7 @@
         insert into confirmation_token (token, date, userId) values ( #{token}, #{date}, #{userId})
     </insert>
 
-    <select id="findToken" resultType="com.example.logger_test.entity.ConfirmationToken">
+    <select id="findToken" resultType="com.asche.wetalk.entity.ConfirmationToken">
         select * from confirmation_token where token=#{token}
     </select>
 </mapper>

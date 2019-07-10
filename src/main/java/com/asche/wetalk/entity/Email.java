@@ -1,16 +1,16 @@
 package com.asche.wetalk.entity;
 
-public class EmailBean {
+public class Email {
     private String from;
     private String to;
     private String name;
     private String subject;
     private String messageText;
 
-    public EmailBean() {
+    public Email() {
     }
 
-    public EmailBean(String from, String to, String name, String subject, String messageText) {
+    public Email(String from, String to, String name, String subject, String messageText) {
         this.from = from;
         this.to = to;
         this.name = name;

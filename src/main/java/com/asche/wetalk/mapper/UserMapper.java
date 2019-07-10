@@ -1,18 +1,23 @@
 package com.asche.wetalk.mapper;
 
-import com.asche.wetalk.entity.UserBean;
+import com.asche.wetalk.entity.User;
 
 import java.util.List;
 
 //@Mapper
 public interface UserMapper {
 
-//    @Select("select * from user_bean")
-    List<UserBean> getAllUser();
+    User findUserById(Integer id);
 
-    UserBean findUserById(Integer id);
+    User findUserByUserName(String username);
 
-    UserBean findUserByEmail(String email);
+    User findUserByEmail(String email);
 
-    void addUser(UserBean user);
+    List<User> getAllUser();
+
+    void addUser(User user);
+
+    void updateUser(User user);
+
+    void deleteUserById(Integer id);
 }

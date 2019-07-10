@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class UserBean {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,10 +22,10 @@ public class UserBean {
 
     private String email;
 
-    public UserBean() {
+    public User() {
     }
 
-    public UserBean(String name, String password, String email) {
+    public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;

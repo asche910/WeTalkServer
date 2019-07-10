@@ -1,6 +1,6 @@
 package com.asche.wetalk.other;
 
-import com.asche.wetalk.entity.LoggerBean;
+import com.asche.wetalk.entity.Logger;
 import com.asche.wetalk.repository.LoggerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,13 +22,13 @@ public class LoggerInterceptor implements HandlerInterceptor {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = format.format(new Date());
 
-        LoggerBean loggerBean = new LoggerBean();
-        loggerBean.setIp(request.getRemoteAddr());
-        loggerBean.setTime(time);
-        loggerBean.setType(request.getMethod());
-        loggerBean.setUri(request.getRequestURI());
-        loggerBean.setArgs(request.getQueryString());
-        loggerRepository.save(loggerBean);
+        Logger logger = new Logger();
+        logger.setIp(request.getRemoteAddr());
+        logger.setTime(time);
+        logger.setType(request.getMethod());
+        logger.setUri(request.getRequestURI());
+        logger.setArgs(request.getQueryString());
+        loggerRepository.save(logger);
         return true;
     }
 

@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class LoggerBean {
+public class Logger {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -17,7 +17,7 @@ public class LoggerBean {
     private String uri;
     private String args;
 
-    public LoggerBean() {
+    public Logger() {
     }
 
     public Integer getId() {

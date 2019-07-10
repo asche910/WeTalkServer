@@ -20,6 +20,10 @@ spring:
     host: home.asche.top
     port: 6379
     password: apknet...
+  servlet:
+    multipart:
+      max-request-size: 12800KB
+      max-file-size: 12800KB
   mail:
     host: smtp.163.com
     port: 25
@@ -27,4 +31,5 @@ spring:
     password: as1314520
     properties.mail.smtp.auth: true
     properties.mail.smtp.starttls.enable: true
-
+  logo:
+    test: Hello, World!
