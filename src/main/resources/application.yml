@@ -1,0 +1,30 @@
+
+#logging:
+#    file: C:\\Users\\Asche\\log.txt
+
+mybatis:
+#  config-location: classpath:mybatis/mybatis-cofig.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/my_data?serverTimezone=GMT%2B8
+    username: root
+    password: apknet...
+  jpa:
+    hibernate:
+      ddl-auto: update
+  cache:
+    type: redis
+  redis:
+    host: home.asche.top
+    port: 6379
+    password: apknet...
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: apknet@163.com
+    password: as1314520
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
+

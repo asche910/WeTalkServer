@@ -1,7 +1,10 @@
 package com.asche.wetalk.controller;
 
+import com.asche.wetalk.common.CommonResult;
 import com.asche.wetalk.entity.UserBean;
 import com.asche.wetalk.repository.UserRepository;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +85,24 @@ public class UserController {
     public Iterable<UserBean> getAllUser(){
         return userRepository.findAll();
     }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public CommonResult tset(){
+        PageHelper.startPage(2, 5);
+        List<UserBean> userList = userRepository.findAll();
+
+        List<UserBean> list = new ArrayList<>();
+        list.addAll(userList);
+//        list.addAll(userRepository.findAll());
+
+
+        PageInfo<UserBean> pageInfo = new PageInfo<>(list);
+        System.out.println(pageInfo.toString());
+        return CommonResult.success("test message!");
+//        return pageInfo;
+    }
+
 
     @GetMapping("/redirect")
     public void redirectTest(HttpServletResponse response){

@@ -3,6 +3,8 @@ package com.asche.wetalk;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.InputStream;
+
 import static com.asche.wetalk.util.PrintUtils.println;
 
 public class Test {
@@ -17,7 +19,7 @@ public class Test {
         thread.start();
 
         try {
-            Thread.sleep(5_000);
+            Thread.sleep(500_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

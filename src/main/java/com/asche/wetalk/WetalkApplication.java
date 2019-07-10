@@ -1,6 +1,7 @@
 package com.asche.wetalk;
 
 import com.asche.wetalk.service.RedisService;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import static com.asche.wetalk.util.PrintUtils.println;
 
+@MapperScan("com.asche.wetalk.mapper")
 @SpringBootApplication
 public class WetalkApplication {
 
