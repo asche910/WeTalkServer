@@ -1,35 +1,45 @@
 package com.asche.wetalk.entity;
 
+import java.io.Serializable;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class User implements Serializable {
     private Integer id;
 
-    private String name;
+    private String username;
 
     private String password;
 
+    private String nickname;
+
+    private String gender;
+
+    private String imgavatar;
+
+    private String imgbg;
+
+    private String signature;
+
+    private String tel;
+
     private String email;
 
-    public User() {
-    }
+    private String address;
 
-    public User(String name, String password, String email) {
-        this.name = name;
-        this.password = password;
-        this.email = email;
-    }
+    private String profession;
+
+    private String school;
+
+    private String description;
+
+    private Boolean isexpert;
+
+    private Boolean isvip;
+
+    private Integer follownum;
+
+    private Integer followernum;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -39,12 +49,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -55,6 +65,54 @@ public class User {
         this.password = password;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getImgavatar() {
+        return imgavatar;
+    }
+
+    public void setImgavatar(String imgavatar) {
+        this.imgavatar = imgavatar;
+    }
+
+    public String getImgbg() {
+        return imgbg;
+    }
+
+    public void setImgbg(String imgbg) {
+        this.imgbg = imgbg;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -63,9 +121,96 @@ public class User {
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getIsexpert() {
+        return isexpert;
+    }
+
+    public void setIsexpert(Boolean isexpert) {
+        this.isexpert = isexpert;
+    }
+
+    public Boolean getIsvip() {
+        return isvip;
+    }
+
+    public void setIsvip(Boolean isvip) {
+        this.isvip = isvip;
+    }
+
+    public Integer getFollownum() {
+        return follownum;
+    }
+
+    public void setFollownum(Integer follownum) {
+        this.follownum = follownum;
+    }
+
+    public Integer getFollowernum() {
+        return followernum;
+    }
+
+    public void setFollowernum(Integer followernum) {
+        this.followernum = followernum;
+    }
+
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        return gson.toJson(this);
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
+        sb.append(", nickname=").append(nickname);
+        sb.append(", gender=").append(gender);
+        sb.append(", imgavatar=").append(imgavatar);
+        sb.append(", imgbg=").append(imgbg);
+        sb.append(", signature=").append(signature);
+        sb.append(", tel=").append(tel);
+        sb.append(", email=").append(email);
+        sb.append(", address=").append(address);
+        sb.append(", profession=").append(profession);
+        sb.append(", school=").append(school);
+        sb.append(", description=").append(description);
+        sb.append(", isexpert=").append(isexpert);
+        sb.append(", isvip=").append(isvip);
+        sb.append(", follownum=").append(follownum);
+        sb.append(", followernum=").append(followernum);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

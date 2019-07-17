@@ -1,23 +1,30 @@
 package com.asche.wetalk.mapper;
 
 import com.asche.wetalk.entity.User;
-
+import com.asche.wetalk.entity.UserExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
-//@Mapper
 public interface UserMapper {
+    int countByExample(UserExample example);
 
-    User findUserById(Integer id);
+    int deleteByExample(UserExample example);
 
-    User findUserByUserName(String username);
+    int deleteByPrimaryKey(Integer id);
 
-    User findUserByEmail(String email);
+    int insert(User record);
 
-    List<User> getAllUser();
+    int insertSelective(User record);
 
-    void addUser(User user);
+    List<User> selectByExample(UserExample example);
 
-    void updateUser(User user);
+    User selectByPrimaryKey(Integer id);
 
-    void deleteUserById(Integer id);
+    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
 }
