@@ -1,7 +1,10 @@
 package com.asche.wetalk.controller;
 
+import com.asche.wetalk.common.CommonResult;
+import com.asche.wetalk.common.ResultCode;
 import com.asche.wetalk.entity.User;
-import com.asche.wetalk.repository.UserRepository;
+import com.asche.wetalk.entity.UserExample;
+import com.asche.wetalk.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.List;
+
 import static com.asche.wetalk.util.PrintUtils.println;
 
 @Controller
 public class LoginController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @GetMapping("/login")
     public String login(){
@@ -26,15 +31,21 @@ public class LoginController {
 
     @PostMapping(value = "/loginCheck")
     @ResponseBody
-    public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+    public CommonResult loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
         println("Login: " + username + " --- " + password);
-        User user = userRepository.login(username);
-        if (user != null){
+
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<User> userList = userMapper.selectByExample(userExample);
+
+        if (userList.size() != 0){
+            User user = userList.get(0);
             if (user.getPassword().equals(password)){
                 request.getSession().setAttribute("user", username);
-                return "Login success!";
+                return new CommonResult(200, "Login success!", null);
             }
         }
-        return "Login failed!";
+        return CommonResult.failed(ResultCode.FAILED);
     }
 }

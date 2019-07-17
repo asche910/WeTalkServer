@@ -114,3 +114,14 @@ create table user
 create unique index user_username_uindex
     on user (username);
 
+create table logger
+(
+    id int auto_increment,
+    ip varchar(30) null,
+    time varchar(30) null,
+    type varchar(10) null,
+    uri varchar(100) null,
+    args varchar(200) null,
+    constraint logger_pk
+        primary key (id)
+);

@@ -2,8 +2,8 @@ package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
 import com.asche.wetalk.entity.User;
+import com.asche.wetalk.entity.UserExample;
 import com.asche.wetalk.mapper.UserMapper;
-import com.asche.wetalk.repository.UserRepository;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static com.asche.wetalk.util.PrintUtils.println;
 
@@ -34,20 +31,15 @@ public class UserController {
 
     @GetMapping("/add")
     @ResponseBody
-    public String addUser(@RequestParam String name, @RequestParam String password, String email) {
-
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
-        userMapper.addUser(user);
+    public String addUser(User user) {
+        userMapper.insert(user);
         return "Add success!";
     }
 
     @GetMapping(value = "/query", produces = "application/json;charset=utf-8")
     @ResponseBody
     public CommonResult query(@RequestParam int id){
-        User user = userMapper.findUserById(id);
+        User user = userMapper.selectByPrimaryKey(id);
         if (user != null){
              return CommonResult.success(user);
         }else{
@@ -58,9 +50,13 @@ public class UserController {
     @GetMapping(value = "/query_name", produces = "application/json;charset=utf-8")
     @ResponseBody
     public CommonResult queryByName(@RequestParam String username){
-        User user = userMapper.findUserByUserName(username);
-        if (user != null){
-            return CommonResult.success(user);
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameLike(username);
+        List<User> userList = userMapper.selectByExample(userExample);
+
+        if (userList != null){
+            return CommonResult.success(userList);
         }else{
             return CommonResult.success(null);
         }
@@ -70,14 +66,14 @@ public class UserController {
     @ResponseBody
     public CommonResult updateUser(User user){
         println(user.toString());
-        userMapper.updateUser(user);
+        userMapper.updateByPrimaryKeySelective(user);
         return CommonResult.success(null);
     }
 
     @GetMapping(value = "/delete", produces = "application/json;charset=utf-8")
     @ResponseBody
     public CommonResult deleteById(@RequestParam int id){
-        userMapper.deleteUserById(id);
+        userMapper.deleteByPrimaryKey(id);
         return CommonResult.success(null);
     }
 
@@ -85,7 +81,7 @@ public class UserController {
     @GetMapping("/all")
     @ResponseBody
     public CommonResult getAllUser(){
-        List<User> userList = userMapper.getAllUser();
+        List<User> userList = userMapper.selectByExample(new UserExample());
         return CommonResult.success(userList);
     }
 
@@ -93,7 +89,7 @@ public class UserController {
     @ResponseBody
     public PageInfo tset(){
         PageHelper.startPage(1, 5);
-        List<User> userList = userMapper.getAllUser();
+        List<User> userList = userMapper.selectByExample(new UserExample());
 
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         System.out.println(pageInfo.toString());

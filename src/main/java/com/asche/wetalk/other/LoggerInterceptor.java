@@ -2,7 +2,6 @@ package com.asche.wetalk.other;
 
 import com.asche.wetalk.entity.Logger;
 import com.asche.wetalk.mapper.LoggerMapper;
-import com.asche.wetalk.repository.LoggerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
