@@ -81,9 +81,13 @@ public class UserController {
 
     @GetMapping("/all")
     @ResponseBody
-    public CommonResult getAllUser(){
+    public PageInfo getAllUser(@RequestParam(name = "pageNum", required = false, defaultValue = "1")int pageNum,
+                                   @RequestParam(name = "pageSize", defaultValue = "5")int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
         List<User> userList = userMapper.selectByExample(new UserExample());
-        return CommonResult.success(userList);
+        PageInfo<User> pageInfo = new PageInfo<>(userList);
+
+        return pageInfo;
     }
 
     @GetMapping("/test")

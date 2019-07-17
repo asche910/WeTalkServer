@@ -1,6 +1,6 @@
 create table article
 (
-    id int not null,
+    id int not null auto_increment,
     authorId int null,
     title varchar(50) null,
     brief varchar(1000) null,
@@ -14,9 +14,11 @@ create table article
         primary key (id)
 );
 
+alter table article AUTO_INCREMENT=10000;
+
 create table comment
 (
-    id int not null,
+    id int not null auto_increment,
     parentId int null,
     bodyId int null,
     authorId int null,
@@ -28,10 +30,11 @@ create table comment
         primary key (id)
 );
 
+alter table comment AUTO_INCREMENT=10000;
 
 create table happen
 (
-    id int not null,
+    id int not null auto_increment,
     authorId int null,
     content varchar(500) null,
     time varchar(30) null,
@@ -41,9 +44,11 @@ create table happen
         primary key (id)
 );
 
+alter table happen AUTO_INCREMENT=10000;
+
 create table requirement
 (
-    id int not null,
+    id int not null auto_increment,
     type int null,
     authorId int null,
     title varchar(50) null,
@@ -58,9 +63,11 @@ create table requirement
         primary key (id)
 );
 
+alter table requirement AUTO_INCREMENT=10000;
+
 create table topic
 (
-    id int not null,
+    id int not null auto_increment,
     authorId int null,
     title varchar(50) null,
     content varchar(500) null,
@@ -72,9 +79,11 @@ create table topic
         primary key (id)
 );
 
+alter table topic AUTO_INCREMENT=10000;
+
 create table topicReply
 (
-    id int not null,
+    id int not null auto_increment,
     topicId int null,
     authorId int null,
     content text null,
@@ -87,9 +96,11 @@ create table topicReply
         primary key (id)
 );
 
+alter table topicReply AUTO_INCREMENT=10000;
+
 create table user
 (
-    id int not null,
+    id int not null auto_increment,
     username varchar(20) null,
     password varchar(100) null,
     nickname varchar(20) null,
@@ -114,6 +125,8 @@ create table user
 create unique index user_username_uindex
     on user (username);
 
+alter table user AUTO_INCREMENT=10000;
+
 create table logger
 (
     id int auto_increment,
@@ -121,7 +134,7 @@ create table logger
     time varchar(30) null,
     type varchar(10) null,
     uri varchar(100) null,
-    args varchar(200) null,
+    args varchar(500) null,
     constraint logger_pk
         primary key (id)
 );
