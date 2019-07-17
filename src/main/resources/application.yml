@@ -11,6 +11,7 @@ spring:
     url: jdbc:mysql://localhost:3306/my_data?serverTimezone=GMT%2B8
     username: root
     password: apknet...
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -33,3 +34,8 @@ spring:
     properties.mail.smtp.starttls.enable: true
   logo:
     test: Hello, World!
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

@@ -12,11 +12,15 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("Test Start:...");
 
+        int [][] test = new int[4][6];
+        println(test.length);
+        println(test[0].length);
 
         MyRunnable runnable = new MyRunnable();
 
         Thread thread = new Thread(runnable, "MyThread-0");
         thread.start();
+
 
         try {
             Thread.sleep(500_000);

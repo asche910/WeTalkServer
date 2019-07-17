@@ -1,6 +1,7 @@
 package com.asche.wetalk.other;
 
 import com.asche.wetalk.entity.Logger;
+import com.asche.wetalk.mapper.LoggerMapper;
 import com.asche.wetalk.repository.LoggerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,7 +16,7 @@ import java.util.Date;
 public class LoggerInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private LoggerRepository loggerRepository;
+    private LoggerMapper loggerMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -28,7 +29,7 @@ public class LoggerInterceptor implements HandlerInterceptor {
         logger.setType(request.getMethod());
         logger.setUri(request.getRequestURI());
         logger.setArgs(request.getQueryString());
-        loggerRepository.save(logger);
+        loggerMapper.add(logger);
         return true;
     }
 

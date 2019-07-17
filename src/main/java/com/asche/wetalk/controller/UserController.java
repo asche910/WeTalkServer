@@ -92,15 +92,10 @@ public class UserController {
     @GetMapping("/test")
     @ResponseBody
     public PageInfo tset(){
-        PageHelper.startPage(2, 5);
+        PageHelper.startPage(1, 5);
         List<User> userList = userMapper.getAllUser();
 
-        List<User> list = new ArrayList<>();
-        list.addAll(userList);
-//        list.addAll(userRepository.findAll());
-
-
-        PageInfo<User> pageInfo = new PageInfo<>(list);
+        PageInfo<User> pageInfo = new PageInfo<>(userList);
         System.out.println(pageInfo.toString());
 //        return CommonResult.success("test message!");
         return pageInfo;
