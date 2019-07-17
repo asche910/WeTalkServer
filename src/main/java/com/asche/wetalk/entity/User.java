@@ -1,12 +1,20 @@
 package com.asche.wetalk.entity;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class User implements Serializable {
     private Integer id;
 
+    @NotBlank(message = "用户名不能为空！")
     private String username;
 
+    @NotBlank(message = "密码不能为空！")
     private String password;
 
     private String nickname;

@@ -43,9 +43,9 @@ public class LoginController {
             User user = userList.get(0);
             if (user.getPassword().equals(password)){
                 request.getSession().setAttribute("user", username);
-                return new CommonResult(200, "Login success!", null);
+                return CommonResult.success("Login success!");
             }
         }
-        return CommonResult.failed(ResultCode.FAILED);
+        return CommonResult.failed("Login failed!");
     }
 }

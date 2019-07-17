@@ -27,7 +27,7 @@ public class WetalkApplication {
     CommandLineRunner init(){
 
         String key = "hello";
-        String str = "Hello, World!";
+        String str = "Redis ---> Hello, World!";
         redisService.write(key, str);
 
         println(redisService.get(key));
