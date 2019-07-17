@@ -33,7 +33,12 @@ public class UserController {
     @GetMapping("/add")
     @ResponseBody
     public CommonResult addUser(@Validated User user) {
-        userMapper.insert(user);
+        try {
+            userMapper.insert(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.failed("Add failed!");
+        }
         return CommonResult.success("Add success!");
     }
 
@@ -86,7 +91,6 @@ public class UserController {
         PageHelper.startPage(pageNum, pageSize);
         List<User> userList = userMapper.selectByExample(new UserExample());
         PageInfo<User> pageInfo = new PageInfo<>(userList);
-
         return pageInfo;
     }
 

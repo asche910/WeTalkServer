@@ -1,9 +1,13 @@
 package com.asche.wetalk.controller;
 
+import com.asche.wetalk.common.CommonResult;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,7 +58,7 @@ public class FileUploadController {
 
             model.addAttribute("files", stream
                     .map(path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                            "getFile", path.getFileName().toString()).build().toString())
+                            "getImage", path.getFileName().toString()).build().toString())
                     .collect(Collectors.toList()));
 
         } catch (IOException e) {
@@ -69,7 +77,7 @@ public class FileUploadController {
      */
     @PostMapping(value = "/fileUpload", produces = "application/json")
     @ResponseBody
-    public String handleUpload(@RequestParam("upload_file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public CommonResult handleUpload(@RequestParam("upload_file") MultipartFile file, RedirectAttributes redirectAttributes) {
         String fileName = file.getOriginalFilename();
 
         println("POST ---> " + fileName);
@@ -82,7 +90,7 @@ public class FileUploadController {
 
             redirectAttributes.addFlashAttribute("message", "You failed!!");
         }
-        return "{\"code\":0, \"status\": \"success\", \"uri\": \"/files/" + fileName + "\" }";
+        return CommonResult.success("upload success!", "/files/" + fileName);
     }
 
     /**
@@ -91,25 +99,12 @@ public class FileUploadController {
      * @param fileName
      * @return
      */
-    @GetMapping("/files/{fileName}")
+    @RequestMapping(value = "/files/{fileName:.+}",produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
-        println("GET ---> " + fileName);
-
-        Path path = rootLocation.resolve(fileName);
-        try {
-            Resource resource = new UrlResource(path.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment: filename=\"" + fileName + "\"")
-                        .header(HttpHeaders.CONTENT_TYPE, "image/png")
-                        .body(resource);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        println("-------------> failed!");
-        return null;
+    public byte[] getImage(@PathVariable String fileName) throws IOException {
+        FileInputStream inputStream = new FileInputStream(new File(rootLocation.toString() + "/" + fileName));
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
     }
 }
