@@ -5,6 +5,7 @@ import com.asche.wetalk.common.ResultCode;
 import com.asche.wetalk.entity.User;
 import com.asche.wetalk.entity.UserExample;
 import com.asche.wetalk.mapper.UserMapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static com.asche.wetalk.util.PrintUtils.println;
 
+@Api(description = "登录管理")
 @Controller
 public class LoginController {
 

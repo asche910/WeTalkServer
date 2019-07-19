@@ -6,6 +6,9 @@ import com.asche.wetalk.entity.UserExample;
 import com.asche.wetalk.mapper.UserMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,7 @@ import static com.asche.wetalk.util.PrintUtils.println;
 
 @Controller
 @RequestMapping("/user")
+@Api( description = "用户管理")
 public class UserController {
 
     @Autowired
@@ -32,6 +36,7 @@ public class UserController {
 
     @GetMapping("/add")
     @ResponseBody
+    @ApiOperation("添加用户")
     public CommonResult addUser(@Validated User user) {
         try {
             userMapper.insert(user);
@@ -44,6 +49,7 @@ public class UserController {
 
     @GetMapping(value = "/query", produces = "application/json;charset=utf-8")
     @ResponseBody
+    @ApiOperation("按id查询用户")
     public CommonResult query(@RequestParam int id){
         User user = userMapper.selectByPrimaryKey(id);
         if (user != null){

@@ -16,7 +16,7 @@ public class ContentFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         logger.info(request.getRemoteAddr());
 
-        logger.info(request.getClass().getCanonicalName());
+//        logger.info(request.getClass().getCanonicalName());
         chain.doFilter(request, response);
     }
 }

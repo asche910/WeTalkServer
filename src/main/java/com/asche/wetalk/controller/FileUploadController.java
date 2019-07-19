@@ -1,6 +1,8 @@
 package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -32,6 +34,7 @@ import java.util.stream.Stream;
 
 import static com.asche.wetalk.util.PrintUtils.println;
 
+@Api(description = "文件上传")
 @Controller
 public class FileUploadController {
 
@@ -75,6 +78,7 @@ public class FileUploadController {
      * @param redirectAttributes
      * @return
      */
+    @ApiOperation("文件上传接口")
     @PostMapping(value = "/fileUpload", produces = "application/json")
     @ResponseBody
     public CommonResult handleUpload(@RequestParam("upload_file") MultipartFile file, RedirectAttributes redirectAttributes) {
@@ -87,7 +91,6 @@ public class FileUploadController {
 
         } catch (IOException e) {
             e.printStackTrace();
-
             redirectAttributes.addFlashAttribute("message", "You failed!!");
         }
         return CommonResult.success("upload success!", "/files/" + fileName);
