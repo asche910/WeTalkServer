@@ -2,44 +2,36 @@ package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
 import com.asche.wetalk.entity.User;
-import com.asche.wetalk.entity.UserExample;
-import com.asche.wetalk.mapper.UserMapper;
+import com.asche.wetalk.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.SwaggerDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static com.asche.wetalk.util.PrintUtils.println;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 @Api( description = "用户管理")
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Value("${spring.logo.test}")
     String logo;
 
     @GetMapping("/add")
-    @ResponseBody
     @ApiOperation("添加用户")
     public CommonResult addUser(@Validated User user) {
         try {
-            userMapper.insert(user);
+            userService.addUser(user);
         } catch (Exception e) {
             e.printStackTrace();
             return CommonResult.failed("Add failed!");
@@ -47,11 +39,10 @@ public class UserController {
         return CommonResult.success("Add success!");
     }
 
-    @GetMapping(value = "/query", produces = "application/json;charset=utf-8")
-    @ResponseBody
+    @GetMapping(value = "/queryById", produces = "application/json;charset=utf-8")
     @ApiOperation("按id查询用户")
     public CommonResult query(@RequestParam int id){
-        User user = userMapper.selectByPrimaryKey(id);
+        User user = userService.findById(id);
         if (user != null){
              return CommonResult.success(user);
         }else{
@@ -59,14 +50,9 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/query_name", produces = "application/json;charset=utf-8")
-    @ResponseBody
+    @GetMapping(value = "/queryByUsername", produces = "application/json;charset=utf-8")
     public CommonResult queryByName(@RequestParam String username){
-        UserExample userExample = new UserExample();
-        UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andUsernameLike(username);
-        List<User> userList = userMapper.selectByExample(userExample);
-
+        List<User> userList = userService.findLikeUserName(username);
         if (userList != null){
             return CommonResult.success(userList);
         }else{
@@ -74,37 +60,31 @@ public class UserController {
         }
     }
 
-    @GetMapping("/update")
-    @ResponseBody
-    public CommonResult updateUser(User user){
-        println(user.toString());
-        userMapper.updateByPrimaryKeySelective(user);
-        return CommonResult.success(null);
-    }
-
-    @GetMapping(value = "/delete", produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public CommonResult deleteById(@RequestParam int id){
-        userMapper.deleteByPrimaryKey(id);
-        return CommonResult.success(null);
-    }
-
-
     @GetMapping("/all")
-    @ResponseBody
     public PageInfo getAllUser(@RequestParam(name = "pageNum", required = false, defaultValue = "1")int pageNum,
-                                   @RequestParam(name = "pageSize", defaultValue = "5")int pageSize){
-        PageHelper.startPage(pageNum, pageSize);
-        List<User> userList = userMapper.selectByExample(new UserExample());
+                               @RequestParam(name = "pageSize", defaultValue = "5")int pageSize){
+        List<User> userList = userService.getAllUser(pageNum, pageSize);
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         return pageInfo;
     }
 
+    @GetMapping("/update")
+    public CommonResult updateUser(User user){
+        println(user.toString());
+        userService.updateUser(user);
+        return CommonResult.success(user);
+    }
+
+    @GetMapping(value = "/delete", produces = "application/json;charset=utf-8")
+    public CommonResult deleteById(@RequestParam int id){
+        userService.deleteById(id);
+        return CommonResult.success("delete success!", null);
+    }
+
     @GetMapping("/test")
-    @ResponseBody
     public PageInfo tset(){
         PageHelper.startPage(1, 5);
-        List<User> userList = userMapper.selectByExample(new UserExample());
+        List<User> userList = userService.getAllUser(1, 10);
 
         PageInfo<User> pageInfo = new PageInfo<>(userList);
         System.out.println(pageInfo.toString());
@@ -112,12 +92,4 @@ public class UserController {
         return pageInfo;
     }
 
-
-    @GetMapping("/redirect")
-    public void redirectTest(HttpServletResponse response){
-        response.setStatus(302);
-        response.addHeader("Location", "http://asche.top");
-
-        println(response.getClass().getCanonicalName());
-    }
 }

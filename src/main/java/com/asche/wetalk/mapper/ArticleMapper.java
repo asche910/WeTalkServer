@@ -33,4 +33,6 @@ public interface ArticleMapper {
     int updateByPrimaryKeyWithBLOBs(Article record);
 
     int updateByPrimaryKey(Article record);
+
+    int like(@Param("articleId") Integer articleId, @Param("authorId") Integer authorId);
 }

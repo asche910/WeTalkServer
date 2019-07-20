@@ -8,8 +8,8 @@ create table article
     time varchar(30) null,
     imgUrl varchar(200) null,
     videoUrl varchar(200) null,
-    likeNum int null,
-    commentNum int null,
+    likeNum int default 0 null ,
+    commentNum int default 0  null,
     constraint article_pk
         primary key (id)
 );
@@ -25,7 +25,7 @@ create table comment
     type int null,
     content varchar(500) null,
     time varchar(30) null,
-    likeNum int null,
+    likeNum int default 0 null,
     constraint comment_pk
         primary key (id)
 );
@@ -38,8 +38,8 @@ create table happen
     authorId int null,
     content varchar(500) null,
     time varchar(30) null,
-    likeNum int null,
-    commentNum int null,
+    likeNum int default 0 null,
+    commentNum int default 0 null,
     constraint happen_pk
         primary key (id)
 );
@@ -57,8 +57,8 @@ create table requirement
     time varchar(30) null,
     imgUrl varchar(200) null,
     videoUrl varchar(200) null,
-    likeNum int null,
-    commentNum int null,
+    likeNum int default 0 null,
+    commentNum int default 0 null,
     constraint requirement_pk
         primary key (id)
 );
@@ -73,8 +73,8 @@ create table topic
     content varchar(500) null,
     coverUrl varchar(200) null,
     time varchar(30) null,
-    followerNum int null,
-    replyNum int null,
+    followerNum int default 0 null,
+    replyNum int default 0 null,
     constraint topic_pk
         primary key (id)
 );
@@ -90,8 +90,8 @@ create table topicReply
     time varchar(30) null,
     imgUrl varchar(200) null,
     videoUrl varchar(200) null,
-    likeNum int null,
-    commentNum int null,
+    likeNum int default 0 null,
+    commentNum int default 0 null,
     constraint topicReply_pk
         primary key (id)
 );
@@ -116,8 +116,8 @@ create table user
     description varchar(200) null,
     isExpert boolean null,
     isVip boolean null,
-    followNum int null,
-    followerNum int null,
+    followNum int default 0 null,
+    followerNum int default 0 null,
     constraint user_pk
         primary key (id)
 );

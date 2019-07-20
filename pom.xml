@@ -55,6 +55,7 @@
             <version>1.1.15</version>
         </dependency>
 
+<!--     mybatis   -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -84,6 +85,8 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.3</version>
         </dependency>
+
+<!--     swagger2   -->
 
         <dependency>
             <groupId>io.springfox</groupId>

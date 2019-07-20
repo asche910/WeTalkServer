@@ -337,4 +337,8 @@
       commentNum = #{commentnum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="like" parameterType="map">
+    update article set
+  </update>
 </mapper>
