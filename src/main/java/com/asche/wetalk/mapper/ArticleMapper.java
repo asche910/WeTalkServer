@@ -34,5 +34,7 @@ public interface ArticleMapper {
 
     int updateByPrimaryKey(Article record);
 
-    int like(@Param("articleId") Integer articleId, @Param("authorId") Integer authorId);
+    int like(Integer id);
+
+    int unLike(Integer id);
 }

@@ -1,6 +1,7 @@
 package com.asche.wetalk.service;
 
 import com.asche.wetalk.entity.Article;
+import com.asche.wetalk.entity.Like;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface ArticleService {
     void deleteById(Integer id);
 
     void updateArticle(Article article);
+
+    int like(Like like);
+
+    int unLike(Like like);
 }

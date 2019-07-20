@@ -138,3 +138,19 @@ create table logger
     constraint logger_pk
         primary key (id)
 );
+
+
+create table `like`
+(
+    id int auto_increment,
+    bodyId int not null,
+    authorId int not null,
+    type int default 0 null,
+    constraint like_pk
+        primary key (id)
+);
+
+create unique index like_bodyId_authorId_type_uindex
+    on `like` (bodyId, authorId, type);
+
+

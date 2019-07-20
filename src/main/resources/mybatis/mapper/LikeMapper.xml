@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.asche.wetalk.mapper.LikeMapper">
+
+    <select id="find" parameterType="com.asche.wetalk.entity.Like" resultType="com.asche.wetalk.entity.Like">
+        select * from `like` where  bodyId = #{like.bodyId} and authorId= #{like.authorId} and type = #{like.type}
+    </select>
+
+    <insert id="insert" parameterType="com.asche.wetalk.entity.Like">
+        insert into `like` (bodyId, authorId, type)
+        values ( #{like.bodyId}, #{like.authorId}, #{like.type})
+    </insert>
+
+    <delete id="delete" parameterType="com.asche.wetalk.entity.Like">
+        delete from `like` where bodyId = #{like.bodyId} and authorId= #{like.authorId} and type = #{like.type}
+    </delete>
+
+</mapper>
