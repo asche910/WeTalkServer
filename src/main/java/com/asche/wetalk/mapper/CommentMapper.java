@@ -27,4 +27,8 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    int like(Integer id);
+
+    int unLike(Integer id);
 }

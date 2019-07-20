@@ -255,4 +255,13 @@
       likeNum = #{likenum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="like" parameterType="java.lang.Integer">
+    update comment set likeNum = likeNum + 1 where id = #{id}
+  </update>
+
+  <update id="unLike" parameterType="java.lang.Integer">
+    update comment set likeNum = likeNum - 1 where id = #{id}
+  </update>
+
 </mapper>

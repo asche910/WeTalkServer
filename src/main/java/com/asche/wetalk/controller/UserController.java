@@ -1,6 +1,7 @@
 package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
+import com.asche.wetalk.common.ResultCode;
 import com.asche.wetalk.entity.User;
 import com.asche.wetalk.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.asche.wetalk.util.PrintUtils.println;
@@ -26,6 +28,15 @@ public class UserController {
 
     @Value("${spring.logo.test}")
     String logo;
+
+    @GetMapping("/info")
+    public CommonResult currentUser(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        if (user != null){
+            return CommonResult.success(user);
+        }
+        return CommonResult.failed(ResultCode.VALIDATE_FAILED);
+    }
 
     @GetMapping("/add")
     @ApiOperation("添加用户")

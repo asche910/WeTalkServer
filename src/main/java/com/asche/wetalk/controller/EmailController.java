@@ -4,6 +4,7 @@ import com.asche.wetalk.common.CommonResult;
 import com.asche.wetalk.common.IErrorCode;
 import com.asche.wetalk.common.ResultCode;
 import com.asche.wetalk.entity.Email;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,6 +21,7 @@ import java.util.Date;
 import static com.asche.wetalk.util.PrintUtils.println;
 
 @Controller
+@Api(description = "邮件管理")
 public class EmailController {
 
     @Autowired
