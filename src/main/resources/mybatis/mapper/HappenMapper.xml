@@ -223,4 +223,12 @@
       commentNum = #{commentnum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="like" parameterType="java.lang.Integer">
+    update happen set likeNum = likeNum + 1 where id = #{id}
+  </update>
+
+  <update id="unLike" parameterType="java.lang.Integer">
+    update happen set likeNum = likeNum - 1 where id = #{id}
+  </update>
 </mapper>

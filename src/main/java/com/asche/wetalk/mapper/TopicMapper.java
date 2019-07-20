@@ -27,4 +27,8 @@ public interface TopicMapper {
     int updateByPrimaryKeySelective(Topic record);
 
     int updateByPrimaryKey(Topic record);
+
+    int like(Integer id);
+
+    int unLike(Integer id);
 }

@@ -33,4 +33,8 @@ public interface RequirementMapper {
     int updateByPrimaryKeyWithBLOBs(Requirement record);
 
     int updateByPrimaryKey(Requirement record);
+
+    int like(Integer id);
+
+    int unLike(Integer id);
 }

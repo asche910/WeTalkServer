@@ -27,4 +27,8 @@ public interface HappenMapper {
     int updateByPrimaryKeySelective(Happen record);
 
     int updateByPrimaryKey(Happen record);
+
+    int like(Integer id);
+
+    int unLike(Integer id);
 }

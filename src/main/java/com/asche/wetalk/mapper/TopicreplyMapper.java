@@ -33,4 +33,8 @@ public interface TopicreplyMapper {
     int updateByPrimaryKeyWithBLOBs(Topicreply record);
 
     int updateByPrimaryKey(Topicreply record);
+
+    int like(Integer id);
+
+    int unLike(Integer id);
 }

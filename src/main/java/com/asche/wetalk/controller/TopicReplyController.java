@@ -2,11 +2,8 @@ package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
 import com.asche.wetalk.common.ResultCode;
-import com.asche.wetalk.entity.Article;
-import com.asche.wetalk.entity.BodyType;
-import com.asche.wetalk.entity.Like;
-import com.asche.wetalk.entity.User;
-import com.asche.wetalk.service.ArticleService;
+import com.asche.wetalk.entity.*;
+import com.asche.wetalk.service.TopicReplyService;
 import com.asche.wetalk.util.TimeUtils;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -20,24 +17,25 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
+@SuppressWarnings("Duplicates")
 @RestController
-@RequestMapping("/article")
-@Api(description = "文章管理")
-public class ArticleController {
+@RequestMapping("/topicReply")
+@Api(description = "话题回复管理")
+public class TopicReplyController {
 
     @Autowired
-    private ArticleService articleService;
+    private TopicReplyService topicReplyService;
 
     @PostMapping("/publish")
-    public CommonResult publish(Article article, HttpServletRequest request) {
+    public CommonResult publish(Topicreply topicreply, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
-            article.setId(null);
-            article.setAuthorid(user.getId());
-            article.setTime(TimeUtils.getCurrentTime());
-            article.setLikenum(0);
-            article.setCommentnum(0);
-            articleService.publish(article);
+            topicreply.setId(null);
+            topicreply.setAuthorid(user.getId());
+            topicreply.setTime(TimeUtils.getCurrentTime());
+            topicreply.setLikenum(0);
+            topicreply.setCommentnum(0);
+            topicReplyService.publish(topicreply);
             return CommonResult.success("发布成功！", null);
         }
         return CommonResult.failed(ResultCode.VALIDATE_FAILED);
@@ -45,27 +43,27 @@ public class ArticleController {
 
     @RequestMapping("/find/id")
     public CommonResult findById(int id) {
-        Article article = articleService.findById(id);
-        return CommonResult.success(article);
+        Topicreply topicreply = topicReplyService.findById(id);
+        return CommonResult.success(topicreply);
     }
 
-    @RequestMapping("/find/title")
-    public CommonResult findByTitle(@RequestParam(name = "title") String title) {
-        List<Article> articles = articleService.findByTitle(title);
-        return CommonResult.success(articles);
+    @RequestMapping("/find/topic")
+    public CommonResult findByTopic(@RequestParam(name = "topic") Integer id) {
+        List<Topicreply> topicreplies = topicReplyService.findByTopic(id);
+        return CommonResult.success(topicreplies);
     }
 
     @RequestMapping("/find/author")
     public CommonResult findByAuthor(@RequestParam(name = "authorId") int authorId) {
-        List<Article> articles = articleService.findByAuthor(authorId);
-        return CommonResult.success(articles);
+        List<Topicreply> topicreplies = topicReplyService.findByAuthor(authorId);
+        return CommonResult.success(topicreplies);
     }
 
     @RequestMapping("/all")
     public PageInfo getAll(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum,
                            @RequestParam(name = "pageSize", defaultValue = "5") int pageSize) {
-        List<Article> allArticle = articleService.getAll(pageNum, pageSize);
-        PageInfo pageInfo = new PageInfo<>(allArticle);
+        List<Topicreply> topicreplies = topicReplyService.getAll(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo<>(topicreplies);
         return pageInfo;
     }
 
@@ -73,8 +71,8 @@ public class ArticleController {
     public CommonResult like(@RequestParam Integer id, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
-            Like like = new Like(id, user.getId(), BodyType.Article);
-            int code = articleService.like(like);
+            Like like = new Like(id, user.getId(), BodyType.TopicReply);
+            int code = topicReplyService.like(like);
             if (code == 0)
                 return CommonResult.failed("重复点赞！");
             else
@@ -84,11 +82,11 @@ public class ArticleController {
     }
 
     @RequestMapping("/unLike")
-    public CommonResult unLike(@RequestParam Integer id, HttpServletRequest request){
+    public CommonResult unLike(@RequestParam Integer id, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
-            Like like = new Like(id, user.getId(), BodyType.Article);
-            int code = articleService.unLike(like);
+            Like like = new Like(id, user.getId(), BodyType.TopicReply);
+            int code = topicReplyService.unLike(like);
             if (code == 0)
                 return CommonResult.failed("你尚未点赞！");
             else
@@ -98,3 +96,4 @@ public class ArticleController {
     }
 
 }
+

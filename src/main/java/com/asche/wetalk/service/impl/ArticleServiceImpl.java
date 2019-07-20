@@ -53,7 +53,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getAllArticle(Integer pageNum, Integer pageSize) {
+    public List<Article> getAll(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Article> articles = articleMapper.selectByExample(new ArticleExample());
         return articles;
@@ -65,7 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void updateArticle(Article article) {
+    public void update(Article article) {
         articleMapper.updateByPrimaryKey(article);
     }
 
@@ -83,6 +83,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public int unLike(Like like) {
-        return likeMapper.delete(like);
+        int code = likeMapper.delete(like);
+        if (code == 1){
+            articleMapper.unLike(like.getBodyId());
+        }
+        return code;
     }
 }

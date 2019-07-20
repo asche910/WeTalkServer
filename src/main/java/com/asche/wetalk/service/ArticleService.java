@@ -15,11 +15,11 @@ public interface ArticleService {
 
     List<Article> findByAuthor(Integer authorId);
 
-    List<Article> getAllArticle(Integer pageNum, Integer pageSize);
+    List<Article> getAll(Integer pageNum, Integer pageSize);
 
     void deleteById(Integer id);
 
-    void updateArticle(Article article);
+    void update(Article article);
 
     int like(Like like);
 

@@ -255,4 +255,11 @@
       replyNum = #{replynum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="like" parameterType="java.lang.Integer">
+    update topic set followernum = followernum + 1 where id = #{id}
+  </update>
+
+  <update id="unLike" parameterType="java.lang.Integer">
+    update topic set followernum = followernum - 1 where id = #{id}
+  </update>
 </mapper>
