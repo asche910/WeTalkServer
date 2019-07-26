@@ -1,10 +1,12 @@
 package com.asche.wetalk.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+//import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
+//@Document(indexName = "wetalk", type = "user", replicas = 0)
 public class User implements Serializable {
     private Integer id;
 

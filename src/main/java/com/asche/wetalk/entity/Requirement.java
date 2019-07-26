@@ -1,7 +1,9 @@
 package com.asche.wetalk.entity;
 
+
 import java.io.Serializable;
 
+//@Document(indexName = "wetalk", type = "requirement", replicas = 0)
 public class Requirement implements Serializable {
     private Integer id;
 

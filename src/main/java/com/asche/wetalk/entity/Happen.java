@@ -1,7 +1,10 @@
 package com.asche.wetalk.entity;
 
+//import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.io.Serializable;
 
+//@Document(indexName = "wetalk", type = "happen", replicas = 0)
 public class Happen implements Serializable {
     private Integer id;
 

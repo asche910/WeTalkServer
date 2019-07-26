@@ -19,6 +19,7 @@ public class WetalkApplication {
     RedisService redisService;
 
     public static void main(String[] args) {
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(WetalkApplication.class, args);
 
     }

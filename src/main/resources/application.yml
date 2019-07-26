@@ -1,9 +1,8 @@
-
 #logging:
 #    file: C:\\Users\\Asche\\log.txt
 
 mybatis:
-#  config-location: classpath:mybatis/mybatis-cofig.xml
+  #  config-location: classpath:mybatis/mybatis-cofig.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 spring:
@@ -13,9 +12,9 @@ spring:
     password: apknet...
     initialization-mode: never
     schema: classpath:schema.sql
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
+  #  jpa:
+  #    hibernate:
+  #      ddl-auto: update
   cache:
     type: redis
   redis:
@@ -35,6 +34,13 @@ spring:
     properties.mail.smtp.starttls.enable: true
   logo:
     test: Hello, World!
+  data:
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      cluster-name: XE
+#      properties:
+#        data: C:\Users\Asche\ZZZ_dependencies\elasticsearch-7.2.0\data
+#        logs: C:\Users\Asche\ZZZ_dependencies\elasticsearch-7.2.0\logs
 pagehelper:
   helperDialect: mysql
   reasonable: true

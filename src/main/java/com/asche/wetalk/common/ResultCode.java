@@ -3,9 +3,10 @@ package com.asche.wetalk.common;
 public enum ResultCode implements IErrorCode{
     SUCCESS(200, "success"),
     FAILED(500, "failed"),
-    NOT_FOUNT(404, "not found"),
-    VALIDATE_FAILED(401, "validate failed"),
-    FORBIDDEN(403, "forbidden");
+    VALIDATE_FAILED(401, "unauthorized"),
+    FORBIDDEN(403, "forbidden"),
+    NOT_FOUNT(404, "not found");
+
 
     private long code;
     private String message;
