@@ -72,6 +72,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getOutputStream().println(CommonResult.failed( "auth failed!").toString());
+        response.getOutputStream().println(CommonResult.failed( "Auth failed!").toString());
     }
 }
