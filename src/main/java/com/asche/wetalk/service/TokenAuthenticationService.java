@@ -18,9 +18,23 @@ import java.util.List;
 
 public class TokenAuthenticationService {
     static final long EXPIRATIONTIME = 432_000_000;     // 5天
-    static final String SECRET = "P@ssw02d";            // JWT密码
+    static final String SECRET = "WETALK_ASCHE";            // JWT密码
     static final String TOKEN_PREFIX = "Bearer";        // Token前缀
     static final String HEADER_STRING = "Authorization";// 存放Token的Header Key
+
+    public static String generateToken(String username){
+        String token = Jwts.builder()
+                // 保存权限（角色）
+                .claim("authorities", "ROLE_ADMIN,AUTH_WRITE")
+                // 用户名写入标题
+                .setSubject(username)
+                // 有效期设置
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+                // 签名设置
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .compact();
+        return token;
+    }
 
     // JWT生成方法
     public static void addAuthentication(HttpServletResponse response, String username) {

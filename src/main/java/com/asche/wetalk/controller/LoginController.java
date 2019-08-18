@@ -2,6 +2,7 @@ package com.asche.wetalk.controller;
 
 import com.asche.wetalk.common.CommonResult;
 import com.asche.wetalk.entity.User;
+import com.asche.wetalk.service.TokenAuthenticationService;
 import com.asche.wetalk.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ public class LoginController {
         if (user != null){
             if (user.getPassword().equals(password)){
                 // request.getSession().setAttribute("user", user);
-                return CommonResult.success("Login success!", null);
+                String token = TokenAuthenticationService.generateToken(username);
+                return CommonResult.success("Login success!", token);
             }
         }
         return CommonResult.failed("Login failed!");
