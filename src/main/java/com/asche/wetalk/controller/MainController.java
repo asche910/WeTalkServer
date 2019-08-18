@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.asche.wetalk.util.PrintUtils.println;
@@ -19,7 +20,7 @@ public class MainController {
     }
 
     @GetMapping("/vip")
-    public String vip(){
+    public String vip(HttpServletRequest request){
         return "vip";
     }
 

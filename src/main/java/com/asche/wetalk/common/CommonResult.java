@@ -1,6 +1,7 @@
 package com.asche.wetalk.common;
 
 import com.alibaba.druid.wall.violation.ErrorCode;
+import com.google.gson.Gson;
 
 public class CommonResult<T> {
     private long code;
@@ -62,5 +63,11 @@ public class CommonResult<T> {
 
     public static <T> CommonResult<T> failed() {
         return failed(ResultCode.FAILED);
+    }
+
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }
