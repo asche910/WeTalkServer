@@ -18,7 +18,7 @@ spring:
   cache:
     type: redis
   redis:
-    host: home.asche.top
+    host: asche.top
     port: 6379
     password: apknet...
   servlet:
@@ -29,7 +29,7 @@ spring:
     host: smtp.163.com
     port: 25
     username: apknet@163.com
-    password: as1314520
+    password: as123456
     properties.mail.smtp.auth: true
     properties.mail.smtp.starttls.enable: true
   logo:

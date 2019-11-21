@@ -1,20 +1,19 @@
 package com.asche.wetalk.common;
 
-import com.alibaba.druid.wall.violation.ErrorCode;
 import com.google.gson.Gson;
 
 public class CommonResult<T> {
     private long code;
     private String message;
-    private T date;
+    private T data;
 
     public CommonResult() {
     }
 
-    public CommonResult(long code, String message, T date) {
+    public CommonResult(long code, String message, T data) {
         this.code = code;
         this.message = message;
-        this.date = date;
+        this.data = data;
     }
 
     public long getCode() {
@@ -33,12 +32,12 @@ public class CommonResult<T> {
         this.message = message;
     }
 
-    public T getDate() {
-        return date;
+    public T getData() {
+        return data;
     }
 
-    public void setDate(T date) {
-        this.date = date;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public static <T> CommonResult<T> success(T data) {
