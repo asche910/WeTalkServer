@@ -27,7 +27,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         setAuthenticationManager(authManager);
     }
 
-
     /**
      * 登录时验证使用
      * @param httpServletRequest
