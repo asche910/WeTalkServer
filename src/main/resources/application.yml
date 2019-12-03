@@ -20,7 +20,7 @@ spring:
   redis:
     host: asche.top
     port: 6379
-    password: apknet...
+    password: 123456
   servlet:
     multipart:
       max-request-size: 12800KB
